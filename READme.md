@@ -23,10 +23,10 @@ Performance is then backtested against the **SPY benchmark** to evaluate risk-ad
 ![Cluster Performance](images/cluster_stats.png)
 
 ### Backtest Results
-![Backtest Table](images/model_vs_sp500.png.png)
+![Backtest Table](images/model_vs_sp500.png)
 
 ### Equity Curve
-![Equity Curve](images/equity_curve.png.png)
+![Equity Curve](images/equity_curve.png)
 
 ---
 
