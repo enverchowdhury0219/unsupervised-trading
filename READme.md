@@ -20,13 +20,13 @@ Performance is then backtested against the **SPY benchmark** to evaluate risk-ad
 ## 📊 Results
 
 ### Cluster Training Performance
-![Cluster Performance](path/to/your/cluster_table.png)
+![Cluster Performance](images/cluster_stats.png)
 
 ### Backtest Results
-![Backtest Table](path/to/your/backtest_table.png)
+![Backtest Table](images/model_vs_sp500.png.png)
 
 ### Equity Curve
-![Equity Curve](path/to/your/equity_curve.png)
+![Equity Curve](images/equity_curve.png.png)
 
 ---
 
@@ -38,10 +38,3 @@ Performance is then backtested against the **SPY benchmark** to evaluate risk-ad
 - `matplotlib` for visualization
 
 ---
-
-## ⚙️ Usage
-
-1. Clone the repo  
-   ```bash
-   git clone https://github.com/yourusername/unsupervised-trading.git
-   cd unsupervised-trading
