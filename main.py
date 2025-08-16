@@ -123,7 +123,7 @@ def perf_stats(returns, freq=252):
     peak = curve.cummax()
     mdd = ((curve / peak) - 1).min()
     cagr = curve.iloc[-1] ** (freq / len(returns)) - 1 if len(returns) > 0 else np.nan
-    return {"CAGR": cagr, "Sharpe": sharpe, "MaxDD": mdd}
+    return {"CAGR": float(cagr), "Sharpe": float(sharpe), "MaxDD": float(mdd)}
 
 # ----------------------
 # Main
