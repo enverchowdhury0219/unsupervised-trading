@@ -160,9 +160,12 @@ def main():
     print("\n=== Cluster train performance (mean next-day return) ===")
     print(cluster_perf.sort_index())
     print(f"\nBest cluster (train): {best_cluster}")
+    
+
     print("\n=== Test Stats ===")
-    print("Strategy:", {k: round(v, 4) for k,v in s_stats.items()})
-    print("SPY:",      {k: round(v, 4) for k,v in b_stats.items()})
+    results = pd.DataFrame([s_stats, b_stats], index=["Strategy","SPY"])
+    print(results.round(4))
+
 
     # Plot equity curves
     strat_curve = (1 + strat_ret).cumprod().rename("Strategy")
