@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 # ----------------------
 TICKERS = ["AAPL","MSFT","AMZN","GOOGL","META","NVDA","TSLA","JPM","XOM","UNH"]
 BENCH   = "SPY"
-START   = "2016-01-01"
+START   = "2016-01-21"
 END     = "2025-08-01"
 N_CLUSTERS = 3
 TRAIN_SPLIT = 0.6      # first 60% of days = training, rest = test
