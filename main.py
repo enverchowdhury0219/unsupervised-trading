@@ -168,7 +168,7 @@ def main():
 
 
     # Plot equity curves
-    strat_curve = (1 + strat_ret).cumprod().rename("Strategy")
+    strat_curve = (1 + strat_ret).cumprod().rename("Unsupervised Strategy")
     spy_curve   = (1 + bench_ret).cumprod().rename("SPY")
 
     ax = strat_curve.plot(figsize=(10,5))
