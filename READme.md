@@ -16,6 +16,23 @@ the purpose of this project was to explore a concept i was learning about (unsup
 
 ## Results
 
+Cluster Training Performance
+
+| cluster | fwd1d (mean next-day return) |
+|---|---|
+| 0 | 0.001693 |
+| 1 | 0.002799 |
+| 2 | 0.001161 |
+
+Best cluster (train): 1
+
+Backtest Results — Test Stats
+
+| | CAGR | Sharpe | MaxDD |
+|---|---|---|---|
+| Strategy | 0.2101 | 0.6925 | -0.5138 |
+| SPY | 0.1139 | 0.6780 | -0.2450 |
+
 ### Cluster Training Performance
 ![Cluster Performance](images/cluster_stats.png)
 
