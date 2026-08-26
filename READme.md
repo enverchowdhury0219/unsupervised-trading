@@ -36,6 +36,18 @@ Backtest Results — Test Stats
 ### Equity Curve
 ![Equity Curve](images/equity_curve.png)
 
+## Limitations
+
+this was an exploration of K-Means clustering applied to market data, not a production strategy and hence some limitations:
+
+- **cluster selection uses train performance, then is applied to test** — picking the "best" cluster based on training-set returns and carrying it forward introduces a look-ahead bias risk; the selection itself isn't fully out-of-sample
+- **no transaction costs, slippage, or fees** — real execution would erode returns, especially with daily rebalancing
+- **single backtest period** — results reflect one historical window, not performance across different market regimes (bull/bear/sideways)
+- **no statistical significance testing** — cluster separation and signal quality weren't validated beyond visual/descriptive inspection
+- **K-Means assumes spherical, evenly-sized clusters** — market regimes aren't guaranteed to fit that shape, so the "regimes" found may partly reflect the algorithm's assumptions rather than real structure
+
+this project was more of a proof-of-concept for combining unsupervised learning with signal generation, not a validated trading strategy.
+
 ---
 ## Stack
 - **python**
