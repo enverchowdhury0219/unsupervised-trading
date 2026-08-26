@@ -1,6 +1,7 @@
 # Unsupervised Trading Strategy
 
 the purpose of this project was to explore a concept i was learning about (unsupervised learning and particularly the K-Means algorithm) and applying it to my interest in financial markets, stocks specifically here. the strategy created clusters daily features of S&P 500 stocks to identify market regimes and generate trading signals. performance is then backtested against the SPY benchmark to evaluate risk-adjusted returns.
+
 ---
 
 ## Project Features
