@@ -33,17 +33,10 @@ Backtest Results — Test Stats
 | Strategy | 0.2101 | 0.6925 | -0.5138 |
 | SPY | 0.1139 | 0.6780 | -0.2450 |
 
-### Cluster Training Performance
-![Cluster Performance](images/cluster_stats.png)
-
-### Backtest Results
-![Backtest Table](images/model_vs_sp500.png)
-
 ### Equity Curve
 ![Equity Curve](images/equity_curve.png)
 
 ---
-
 ## Stack
 - **python**
 - `pandas`, `numpy` for data wrangling
