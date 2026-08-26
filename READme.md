@@ -8,7 +8,7 @@ the purpose of this project was to explore a concept i was learning about (unsup
 - fetches historical stock data with `yfinance`
 - extracts rolling features: momentum, volatility, and volume z-scores
 - applies K-Means clustering to discover the hidden regimes
-- generates daily long-only signals from the most the cluster of stocks that have highest average next-day returns
+- generates daily long-only signals from cluster of stocks that have highest average next-day returns
 - backtests that stock portfolio returns vs SPY benchmark
 - reports key performance metrics: **CAGR, Sharpe Ratio, Max Drawdown**
 - visualizes growth of $1 over the test period for easier comparison
