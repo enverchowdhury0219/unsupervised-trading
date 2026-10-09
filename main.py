@@ -41,13 +41,15 @@ def fetch_prices(tickers, start, end):
     volume = pd.concat(vol_cols, axis=1).reindex(close.index)
     return close, volume
 
-# creating our features
+# creating features
 def make_features(close, volume):
     rets = close.pct_change()
     feat = {
         "mom5":  close.pct_change(5),
         "mom20": close.pct_change(20),
         "vol20": rets.rolling(20).std(),
+        
+        # standardized z-value
         "volz20": (volume - volume.rolling(20).mean()) / volume.rolling(20).std(),
     }
     pieces = []
