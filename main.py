@@ -58,26 +58,24 @@ def make_features(close, volume):
     X = pd.concat(pieces, axis=1).dropna()
     X.index = X.index.set_names(["Date","Ticker"])
 
+    # shift the days backwards by 1, so aligns tomorrows pct return with todays features
     fwd1d = close.pct_change().shift(-1).stack().rename("fwd1d")
     fwd1d.index = fwd1d.index.set_names(["Date","Ticker"])
     y = fwd1d.reindex(X.index).dropna()
 
-    # Align X to y after shift
+    # align X to y after shift
     X = X.loc[y.index]
     return X, y
 
-# ----------------------
-# Train / Test split (by date)
-# ----------------------
+# train / test split (by date)
 def time_split_index(dates, train_split=0.6):
     uniq = pd.Index(sorted(dates.unique()))
     cut = int(len(uniq) * train_split)
     split_date = uniq[cut]
     return split_date
 
-# ----------------------
-# Label clusters by their average forward return (train only)
-# ----------------------
+# label clusters by their average forward return (train only)
+# we also chose to set number of clusters and fix the random seed for replicability
 def label_clusters_and_best(X_train, y_train, n_clusters=3, random_state=42):
     scaler = StandardScaler()
     Xs = scaler.fit_transform(X_train.values)
@@ -91,23 +89,22 @@ def label_clusters_and_best(X_train, y_train, n_clusters=3, random_state=42):
 
     return km, scaler, best_cluster, cluster_perf
 
-# ----------------------
-# Build daily signals and backtest
-# ----------------------
+# build daily signals and backtest
 def build_signals_and_backtest(X_test, y_all, km, scaler, best_cluster):
     Xt = scaler.transform(X_test.values)
     preds = pd.Series(km.predict(Xt), index=X_test.index, name="cluster")
     sig = (preds == best_cluster).astype(int).rename("signal")
 
-    # Wide signal matrix (rows=Date, cols=Ticker)
+    # wide signal matrix (rows=Date, cols=Ticker)
     S = sig.unstack("Ticker").fillna(0)
 
-    # Next-day returns aligned to the same (Date, Ticker) index
+    # next-day returns aligned to the same (Date, Ticker) index
     Y = y_all.reindex(X_test.index).unstack("Ticker")
 
-    # Equal-weight daily return among selected tickers; if none selected -> 0
+    # equal-weight daily return among selected tickers; if none selected -> 0
     selected_count = S.sum(axis=1)
-    # Avoid division by zero: where count==0, portfolio return = 0
+    
+    # avoid division by zero: where count == 0, portfolio return = 0
     port_ret = (S * Y).sum(axis=1)
     port_ret = np.where(selected_count.values > 0, port_ret / selected_count.values, 0.0)
     port_ret = pd.Series(port_ret, index=S.index, name="strategy")
@@ -115,7 +112,7 @@ def build_signals_and_backtest(X_test, y_all, km, scaler, best_cluster):
     return port_ret
 
 def perf_stats(returns, freq=252):
-    # Avoid division by zero on empty std
+    # avoid division by zero on empty std
     mu = returns.mean() * freq
     sigma = returns.std(ddof=1) * np.sqrt(freq)
     sharpe = mu / sigma if sigma > 0 else np.nan
@@ -125,9 +122,7 @@ def perf_stats(returns, freq=252):
     cagr = curve.iloc[-1] ** (freq / len(returns)) - 1 if len(returns) > 0 else np.nan
     return {"CAGR": float(cagr), "Sharpe": float(sharpe), "MaxDD": float(mdd)}
 
-# ----------------------
-# Main
-# ----------------------
+# main
 def main():
     close, volume = fetch_prices(TICKERS, START, END)
     bench_close, _ = fetch_prices([BENCH], START, END)
@@ -150,10 +145,10 @@ def main():
 
     strat_ret = build_signals_and_backtest(X_test, y, km, scaler, best_cluster)
 
-    # Align benchmark to test period dates
+    # align benchmark to test period dates
     bench_ret = bench.reindex(strat_ret.index).fillna(0.0)
 
-    # Stats
+    # stats
     s_stats = perf_stats(strat_ret)
     b_stats = perf_stats(bench_ret)
 
@@ -167,7 +162,7 @@ def main():
     print(results.round(4))
 
 
-    # Plot equity curves
+    # plot equity curves
     strat_curve = (1 + strat_ret).cumprod().rename("Unsupervised Strategy")
     spy_curve   = (1 + bench_ret).cumprod().rename("SPY")
 
