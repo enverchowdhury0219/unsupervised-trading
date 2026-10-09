@@ -16,9 +16,7 @@ N_CLUSTERS = 3
 TRAIN_SPLIT = 0.6      # first 60% of days = training, rest = test
 RANDOM_STATE = 42
 
-# ----------------------
-# Data
-# ----------------------
+# getting our data
 def fetch_prices(tickers, start, end):
     close_cols, vol_cols = [], []
     for t in tickers:
@@ -27,23 +25,23 @@ def fetch_prices(tickers, start, end):
             continue
 
         s_close = df["Close"].copy()
-        s_close.name = t                       # <- set series name safely
+        s_close.name = t               
         close_cols.append(s_close)
 
         s_vol = df["Volume"].copy()
-        s_vol.name = t                         # <- set series name safely
+        s_vol.name = t                      
         vol_cols.append(s_vol)
 
+    # exception for when our data is not present
     if not close_cols:
         raise RuntimeError("No price data downloaded. Check tickers/dates or network.")
 
-    close = pd.concat(close_cols, axis=1).dropna(how="all")
+    # placing the dataframes side by side
+    close = pd.concat(close_cols, axis=1).dropna(how="all") 
     volume = pd.concat(vol_cols, axis=1).reindex(close.index)
     return close, volume
 
-# ----------------------
-# Features
-# ----------------------
+# creating our features
 def make_features(close, volume):
     rets = close.pct_change()
     feat = {
