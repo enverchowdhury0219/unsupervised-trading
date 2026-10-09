@@ -5,9 +5,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
-# ----------------------
-# Config
-# ----------------------
+# config
 TICKERS = ["AAPL","MSFT","AMZN","GOOGL","META","NVDA","TSLA","JPM","XOM","UNH"]
 BENCH   = "SPY"
 START   = "2016-01-21"
